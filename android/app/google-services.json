@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "228676617293",
+    "project_id": "time-tracker-pro-5cba0",
+    "storage_bucket": "time-tracker-pro-5cba0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228676617293:android:726616ac760d4292f4c804",
+        "android_client_info": {
+          "package_name": "com.naveen.timetrackerpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228676617293-aon883fggst6hjig48kt7sd5jmobdceb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naveen.timetrackerpro",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "228676617293-9sr7ak5flou6qckj6poh7kq472v365nb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKCLUwAe4Tl1kzcjuxVusrYVdLRm8cdNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228676617293-9sr7ak5flou6qckj6poh7kq472v365nb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "228676617293-6ikkc95u3389btuf0adt4k8naq4ic1sg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.naveen.timetrackerpro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
