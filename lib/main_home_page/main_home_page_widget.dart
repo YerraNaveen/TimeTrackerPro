@@ -252,6 +252,10 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                               'status',
                                               isEqualTo: 'Started',
                                             )
+                                            .where(
+                                              'userId',
+                                              isEqualTo: currentUserUid,
+                                            )
                                             .orderBy('start_time',
                                                 descending: true),
                                       ),
@@ -587,6 +591,10 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                               isGreaterThanOrEqualTo:
                                                   getCurrentTimestamp,
                                             )
+                                            .where(
+                                              'userId',
+                                              isEqualTo: currentUserUid,
+                                            )
                                             .orderBy('start_time',
                                                 descending: true),
                                       ),
@@ -917,6 +925,10 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                               'status',
                                               isEqualTo: 'Completed',
                                             )
+                                            .where(
+                                              'userId',
+                                              isEqualTo: currentUserUid,
+                                            )
                                             .orderBy('start_time',
                                                 descending: true),
                                       ),
@@ -1246,6 +1258,10 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                             .where(
                                               'start_time',
                                               isLessThan: getCurrentTimestamp,
+                                            )
+                                            .where(
+                                              'userId',
+                                              isEqualTo: currentUserUid,
                                             )
                                             .orderBy('start_time',
                                                 descending: true),

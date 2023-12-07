@@ -52,6 +52,10 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.taskStatus = widget.status!;
+        _model.startTime = widget.startTime;
+      });
       _model.instantTimer = InstantTimer.periodic(
         duration: const Duration(milliseconds: 1000),
         callback: (timer) async {
@@ -361,7 +365,7 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
                     if ((_model.taskStatus == 'Started') ||
                         (widget.status == 'Started')) {
                       return Visibility(
-                        visible: (_model.taskStatus != 'Completed') ||
+                        visible: (_model.taskStatus != 'Completed') &&
                             (widget.status != 'Completed'),
                         child: InkWell(
                           splashColor: Colors.transparent,
@@ -376,13 +380,22 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
                               endTime: getCurrentTimestamp,
                               status: 'Completed',
                               durationInMinutes: functions.getDurationInMinutes(
-                                  _model.startTime, getCurrentTimestamp),
+                                  getCurrentTimestamp, _model.startTime),
                               rewardPoints: functions.getDurationInMinutes(
-                                  _model.startTime, getCurrentTimestamp),
+                                  getCurrentTimestamp, widget.startTime),
                             ));
-                            setState(() {
-                              _model.taskStatus = 'Completed';
-                            });
+                            _model.taskStatus = 'Completed';
+
+                            context.pushNamed(
+                              'taskCompletionPage',
+                              queryParameters: {
+                                'rewardPoints': serializeParam(
+                                  functions.getDurationInMinutes(
+                                      getCurrentTimestamp, widget.startTime),
+                                  ParamType.double,
+                                ),
+                              }.withoutNulls,
+                            );
                           },
                           child: Container(
                             width: double.infinity,
