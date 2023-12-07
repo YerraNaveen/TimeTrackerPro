@@ -1,35 +1,35 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-import 'task_created_success_page_model.dart';
-export 'task_created_success_page_model.dart';
+import 'task_completion_page_model.dart';
+export 'task_completion_page_model.dart';
 
-class TaskCreatedSuccessPageWidget extends StatefulWidget {
-  const TaskCreatedSuccessPageWidget({
+class TaskCompletionPageWidget extends StatefulWidget {
+  const TaskCompletionPageWidget({
     super.key,
-    String? status,
-  })  : status = status ?? 'Created';
+    required this.rewardPoints,
+  });
 
-  final String status;
+  final double? rewardPoints;
 
   @override
-  _TaskCreatedSuccessPageWidgetState createState() =>
-      _TaskCreatedSuccessPageWidgetState();
+  _TaskCompletionPageWidgetState createState() =>
+      _TaskCompletionPageWidgetState();
 }
 
-class _TaskCreatedSuccessPageWidgetState
-    extends State<TaskCreatedSuccessPageWidget> {
-  late TaskCreatedSuccessPageModel _model;
+class _TaskCompletionPageWidgetState extends State<TaskCompletionPageWidget> {
+  late TaskCompletionPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TaskCreatedSuccessPageModel());
+    _model = createModel(context, () => TaskCompletionPageModel());
   }
 
   @override
@@ -56,7 +56,7 @@ class _TaskCreatedSuccessPageWidgetState
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFF1E1589),
+        backgroundColor: const Color(0xFF1B0B89),
         body: SafeArea(
           top: true,
           child: Column(
@@ -82,17 +82,21 @@ class _TaskCreatedSuccessPageWidgetState
                 ),
               ),
               Text(
-                'Task ${widget.status} Successfully',
+                'Task Completed',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
                       color: FlutterFlowTheme.of(context).primaryBtnText,
-                      fontSize: 25.0,
+                      fontSize: 32.0,
                     ),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                child: Text(
-                  'you will be notified to start the task.',
+                child: AutoSizeText(
+                  'Reward Points Earned : ${valueOrDefault<String>(
+                    widget.rewardPoints?.toString(),
+                    '12548.545',
+                  )}'
+                      .maybeHandleOverflow(maxChars: 31),
                   style: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'Readex Pro',
                         color: FlutterFlowTheme.of(context).primaryBtnText,

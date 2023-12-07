@@ -10,30 +10,45 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'task_creator_page_model.dart';
-export 'task_creator_page_model.dart';
+import 'edit_task_page_model.dart';
+export 'edit_task_page_model.dart';
 
-class TaskCreatorPageWidget extends StatefulWidget {
-  const TaskCreatorPageWidget({super.key});
+class EditTaskPageWidget extends StatefulWidget {
+  const EditTaskPageWidget({
+    super.key,
+    required this.taskName,
+    required this.startTIme,
+    required this.description,
+    required this.status,
+    required this.id,
+    required this.userTaskReference,
+  });
+
+  final String? taskName;
+  final DateTime? startTIme;
+  final String? description;
+  final String? status;
+  final String? id;
+  final DocumentReference? userTaskReference;
 
   @override
-  _TaskCreatorPageWidgetState createState() => _TaskCreatorPageWidgetState();
+  _EditTaskPageWidgetState createState() => _EditTaskPageWidgetState();
 }
 
-class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
-  late TaskCreatorPageModel _model;
+class _EditTaskPageWidgetState extends State<EditTaskPageWidget> {
+  late EditTaskPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TaskCreatorPageModel());
+    _model = createModel(context, () => EditTaskPageModel());
 
-    _model.textController1 ??= TextEditingController();
+    _model.textController1 ??= TextEditingController(text: widget.taskName);
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
+    _model.textController2 ??= TextEditingController(text: widget.description);
     _model.textFieldFocusNode2 ??= FocusNode();
   }
 
@@ -108,7 +123,7 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
-                      'Create a task',
+                      'Edit task',
                       style: FlutterFlowTheme.of(context).headlineMedium,
                     ),
                   ),
@@ -201,8 +216,8 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                                   });
                                 },
                                 text: !_model.isDateSelected
-                                    ? 'Select Date & Time'
-                                    : 'Change Date & Time',
+                                    ? 'Select Date & TIme'
+                                    : 'Change Date & TIme',
                                 options: FFButtonOptions(
                                   height: 35.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
@@ -300,18 +315,11 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        _model.unqueTaskId = actions.generateUniqueId();
-
-                        var userTasksRecordReference =
-                            UserTasksRecord.collection.doc();
-                        await userTasksRecordReference.set({
+                        await widget.userTaskReference!.update({
                           ...createUserTasksRecordData(
                             taskName: _model.textController1.text,
-                            startTime: _model.datePicked,
                             description: _model.textController2.text,
-                            userId: currentUserUid,
-                            taskId: _model.unqueTaskId,
-                            status: 'Created',
+                            startTime: _model.datePicked,
                           ),
                           ...mapToFirestore(
                             {
@@ -319,21 +327,6 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                             },
                           ),
                         });
-                        _model.success = UserTasksRecord.getDocumentFromData({
-                          ...createUserTasksRecordData(
-                            taskName: _model.textController1.text,
-                            startTime: _model.datePicked,
-                            description: _model.textController2.text,
-                            userId: currentUserUid,
-                            taskId: _model.unqueTaskId,
-                            status: 'Created',
-                          ),
-                          ...mapToFirestore(
-                            {
-                              'time_created': DateTime.now(),
-                            },
-                          ),
-                        }, userTasksRecordReference);
                         unawaited(
                           () async {
                             await actions.scheduleNotification(
@@ -346,6 +339,12 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
 
                         context.goNamed(
                           'taskCreatedSuccessPage',
+                          queryParameters: {
+                            'status': serializeParam(
+                              'Updated',
+                              ParamType.String,
+                            ),
+                          }.withoutNulls,
                           extra: <String, dynamic>{
                             kTransitionInfoKey: const TransitionInfo(
                               hasTransition: true,
@@ -354,10 +353,8 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                             ),
                           },
                         );
-
-                        setState(() {});
                       },
-                      text: 'Create Task',
+                      text: 'Edit Task',
                       icon: const Icon(
                         Icons.receipt_long,
                         size: 15.0,

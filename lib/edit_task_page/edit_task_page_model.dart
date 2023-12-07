@@ -1,10 +1,9 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'task_creator_page_widget.dart' show TaskCreatorPageWidget;
+import 'edit_task_page_widget.dart' show EditTaskPageWidget;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TaskCreatorPageModel extends FlutterFlowModel<TaskCreatorPageWidget> {
+class EditTaskPageModel extends FlutterFlowModel<EditTaskPageWidget> {
   ///  Local state fields for this page.
 
   bool isDateSelected = false;
@@ -21,10 +20,6 @@ class TaskCreatorPageModel extends FlutterFlowModel<TaskCreatorPageWidget> {
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // Stores action output result for [Custom Action - generateUniqueId] action in createTaskButton widget.
-  String? unqueTaskId;
-  // Stores action output result for [Backend Call - Create Document] action in createTaskButton widget.
-  UserTasksRecord? success;
 
   /// Initialization and disposal methods.
 

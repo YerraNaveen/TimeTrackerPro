@@ -2,6 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'profile_page_model.dart';
@@ -314,7 +316,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 0.0, 12.0),
                     child: Text(
-                      'Account Settings',
+                      'Account Information',
                       style: FlutterFlowTheme.of(context).labelMedium,
                     ),
                   ),
@@ -391,23 +393,25 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               12.0, 0.0, 0.0, 0.0),
                           child: Text(
-                            'Edit Profile',
+                            'Total Reward Points',
                             style: FlutterFlowTheme.of(context).labelMedium,
                           ),
                         ),
-                        Expanded(
-                          child: Align(
-                            alignment: const AlignmentDirectional(0.90, 0.00),
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 18.0,
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 12.0, 0.0),
+                          child: AutoSizeText(
+                            valueOrDefault<String>(
+                              functions.getUserRewardPoints(),
+                              '0',
                             ),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
                         ),
                       ],

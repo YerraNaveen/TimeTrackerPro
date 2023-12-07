@@ -7,3 +7,7 @@ export '/task_creator_page/task_creator_page_widget.dart'
     show TaskCreatorPageWidget;
 export '/task_created_success_page/task_created_success_page_widget.dart'
     show TaskCreatedSuccessPageWidget;
+export '/view_task_page/view_task_page_widget.dart' show ViewTaskPageWidget;
+export '/edit_task_page/edit_task_page_widget.dart' show EditTaskPageWidget;
+export '/task_completion_page/task_completion_page_widget.dart'
+    show TaskCompletionPageWidget;

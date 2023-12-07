@@ -8,13 +8,11 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// Set your action name, define your arguments and return parameter,
+// and then add the boilerplate code using the green button on the right!
+import 'package:uuid/uuid.dart';
 
-Future requestNotificationPermissions() async {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.requestPermission();
+String generateUniqueId() {
+  final uuid = new Uuid();
+  return uuid.v1();
 }

@@ -125,9 +125,53 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'taskCreatedSuccessPage',
           path: '/taskCreatedSuccessPage',
-          builder: (context, params) => const NavBarPage(
+          builder: (context, params) => NavBarPage(
             initialPage: '',
-            page: TaskCreatedSuccessPageWidget(),
+            page: TaskCreatedSuccessPageWidget(
+              status: params.getParam('status', ParamType.String),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ViewTaskPage',
+          path: '/viewTaskPage',
+          builder: (context, params) => ViewTaskPageWidget(
+            taskId: params.getParam('taskId', ParamType.String),
+            taskName: params.getParam('taskName', ParamType.String),
+            description: params.getParam('description', ParamType.String),
+            comments: params.getParam('comments', ParamType.String),
+            startTime: params.getParam('startTime', ParamType.DateTime),
+            status: params.getParam('status', ParamType.String),
+            id: params.getParam('id', ParamType.String),
+            taskReference: params.getParam('taskReference',
+                ParamType.DocumentReference, false, ['userTasks']),
+            tabIndex: params.getParam('tabIndex', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'EditTaskPage',
+          path: '/editTaskPage',
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: EditTaskPageWidget(
+              taskName: params.getParam('taskName', ParamType.String),
+              startTIme: params.getParam('startTIme', ParamType.DateTime),
+              description: params.getParam('description', ParamType.String),
+              status: params.getParam('status', ParamType.String),
+              id: params.getParam('id', ParamType.String),
+              userTaskReference: params.getParam('userTaskReference',
+                  ParamType.DocumentReference, false, ['userTasks']),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'taskCompletionPage',
+          path: '/taskCompletionPage',
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: TaskCompletionPageWidget(
+              rewardPoints: params.getParam('rewardPoints', ParamType.double),
+            ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

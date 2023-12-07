@@ -40,11 +40,6 @@ class UserTasksRecord extends FirestoreRecord {
   String get comments => _comments ?? '';
   bool hasComments() => _comments != null;
 
-  // "duration_in_minutes" field.
-  int? _durationInMinutes;
-  int get durationInMinutes => _durationInMinutes ?? 0;
-  bool hasDurationInMinutes() => _durationInMinutes != null;
-
   // "start_time" field.
   DateTime? _startTime;
   DateTime? get startTime => _startTime;
@@ -60,16 +55,39 @@ class UserTasksRecord extends FirestoreRecord {
   String get userId => _userId ?? '';
   bool hasUserId() => _userId != null;
 
+  // "taskId" field.
+  String? _taskId;
+  String get taskId => _taskId ?? '';
+  bool hasTaskId() => _taskId != null;
+
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  bool hasStatus() => _status != null;
+
+  // "durationInMinutes" field.
+  double? _durationInMinutes;
+  double get durationInMinutes => _durationInMinutes ?? 0.0;
+  bool hasDurationInMinutes() => _durationInMinutes != null;
+
+  // "rewardPoints" field.
+  double? _rewardPoints;
+  double get rewardPoints => _rewardPoints ?? 0.0;
+  bool hasRewardPoints() => _rewardPoints != null;
+
   void _initializeFields() {
     _owner = snapshotData['owner'] as DocumentReference?;
     _taskName = snapshotData['task_name'] as String?;
     _description = snapshotData['description'] as String?;
     _timeCreated = snapshotData['time_created'] as DateTime?;
     _comments = snapshotData['comments'] as String?;
-    _durationInMinutes = castToType<int>(snapshotData['duration_in_minutes']);
     _startTime = snapshotData['start_time'] as DateTime?;
     _endTime = snapshotData['end_time'] as DateTime?;
     _userId = snapshotData['userId'] as String?;
+    _taskId = snapshotData['taskId'] as String?;
+    _status = snapshotData['status'] as String?;
+    _durationInMinutes = castToType<double>(snapshotData['durationInMinutes']);
+    _rewardPoints = castToType<double>(snapshotData['rewardPoints']);
   }
 
   static CollectionReference get collection =>
@@ -112,10 +130,13 @@ Map<String, dynamic> createUserTasksRecordData({
   String? description,
   DateTime? timeCreated,
   String? comments,
-  int? durationInMinutes,
   DateTime? startTime,
   DateTime? endTime,
   String? userId,
+  String? taskId,
+  String? status,
+  double? durationInMinutes,
+  double? rewardPoints,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -124,10 +145,13 @@ Map<String, dynamic> createUserTasksRecordData({
       'description': description,
       'time_created': timeCreated,
       'comments': comments,
-      'duration_in_minutes': durationInMinutes,
       'start_time': startTime,
       'end_time': endTime,
       'userId': userId,
+      'taskId': taskId,
+      'status': status,
+      'durationInMinutes': durationInMinutes,
+      'rewardPoints': rewardPoints,
     }.withoutNulls,
   );
 
@@ -144,10 +168,13 @@ class UserTasksRecordDocumentEquality implements Equality<UserTasksRecord> {
         e1?.description == e2?.description &&
         e1?.timeCreated == e2?.timeCreated &&
         e1?.comments == e2?.comments &&
-        e1?.durationInMinutes == e2?.durationInMinutes &&
         e1?.startTime == e2?.startTime &&
         e1?.endTime == e2?.endTime &&
-        e1?.userId == e2?.userId;
+        e1?.userId == e2?.userId &&
+        e1?.taskId == e2?.taskId &&
+        e1?.status == e2?.status &&
+        e1?.durationInMinutes == e2?.durationInMinutes &&
+        e1?.rewardPoints == e2?.rewardPoints;
   }
 
   @override
@@ -157,10 +184,13 @@ class UserTasksRecordDocumentEquality implements Equality<UserTasksRecord> {
         e?.description,
         e?.timeCreated,
         e?.comments,
-        e?.durationInMinutes,
         e?.startTime,
         e?.endTime,
-        e?.userId
+        e?.userId,
+        e?.taskId,
+        e?.status,
+        e?.durationInMinutes,
+        e?.rewardPoints
       ]);
 
   @override

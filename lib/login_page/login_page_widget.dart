@@ -162,6 +162,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryText,
                                           ),
+                                      alignLabelWithHint: false,
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
@@ -325,7 +326,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         context.mounted,
                                         queryParameters: {
                                           'tabNumber': serializeParam(
-                                            1,
+                                            0,
                                             ParamType.int,
                                           ),
                                         }.withoutNulls,

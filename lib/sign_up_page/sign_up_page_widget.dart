@@ -420,8 +420,25 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                           return;
                                         }
 
-                                        context.goNamedAuth(
-                                            'mainHomePage', context.mounted);
+                                        context.pushNamedAuth(
+                                          'mainHomePage',
+                                          context.mounted,
+                                          queryParameters: {
+                                            'tabNumber': serializeParam(
+                                              0,
+                                              ParamType.int,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            kTransitionInfoKey: const TransitionInfo(
+                                              hasTransition: true,
+                                              transitionType:
+                                                  PageTransitionType.fade,
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                            ),
+                                          },
+                                        );
                                       },
                                       text: 'Create Account',
                                       options: FFButtonOptions(

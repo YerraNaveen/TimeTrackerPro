@@ -27,6 +27,20 @@ class MainHomePageModel extends FlutterFlowModel<MainHomePageWidget> {
   Query? listViewPagingQuery2;
   List<StreamSubscription?> listViewStreamSubscriptions2 = [];
 
+  // State field(s) for ListView widget.
+
+  PagingController<DocumentSnapshot?, UserTasksRecord>?
+      listViewPagingController3;
+  Query? listViewPagingQuery3;
+  List<StreamSubscription?> listViewStreamSubscriptions3 = [];
+
+  // State field(s) for ListView widget.
+
+  PagingController<DocumentSnapshot?, UserTasksRecord>?
+      listViewPagingController4;
+  Query? listViewPagingQuery4;
+  List<StreamSubscription?> listViewStreamSubscriptions4 = [];
+
   /// Initialization and disposal methods.
 
   @override
@@ -45,6 +59,16 @@ class MainHomePageModel extends FlutterFlowModel<MainHomePageWidget> {
       s?.cancel();
     }
     listViewPagingController2?.dispose();
+
+    for (var s in listViewStreamSubscriptions3) {
+      s?.cancel();
+    }
+    listViewPagingController3?.dispose();
+
+    for (var s in listViewStreamSubscriptions4) {
+      s?.cancel();
+    }
+    listViewPagingController4?.dispose();
   }
 
   /// Action blocks are added here.
@@ -108,6 +132,70 @@ class MainHomePageModel extends FlutterFlowModel<MainHomePageWidget> {
           queryBuilder: (_) => listViewPagingQuery2 ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions2,
+          controller: controller,
+          pageSize: 25,
+          isStream: true,
+        ),
+      );
+  }
+
+  PagingController<DocumentSnapshot?, UserTasksRecord> setListViewController3(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController3 ??= _createListViewController3(query, parent);
+    if (listViewPagingQuery3 != query) {
+      listViewPagingQuery3 = query;
+      listViewPagingController3?.refresh();
+    }
+    return listViewPagingController3!;
+  }
+
+  PagingController<DocumentSnapshot?, UserTasksRecord>
+      _createListViewController3(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, UserTasksRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryUserTasksRecordPage(
+          queryBuilder: (_) => listViewPagingQuery3 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions3,
+          controller: controller,
+          pageSize: 25,
+          isStream: true,
+        ),
+      );
+  }
+
+  PagingController<DocumentSnapshot?, UserTasksRecord> setListViewController4(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController4 ??= _createListViewController4(query, parent);
+    if (listViewPagingQuery4 != query) {
+      listViewPagingQuery4 = query;
+      listViewPagingController4?.refresh();
+    }
+    return listViewPagingController4!;
+  }
+
+  PagingController<DocumentSnapshot?, UserTasksRecord>
+      _createListViewController4(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, UserTasksRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryUserTasksRecordPage(
+          queryBuilder: (_) => listViewPagingQuery4 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions4,
           controller: controller,
           pageSize: 25,
           isStream: true,
