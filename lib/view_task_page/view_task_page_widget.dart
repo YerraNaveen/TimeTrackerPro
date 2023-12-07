@@ -54,7 +54,12 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.instantTimer = InstantTimer.periodic(
         duration: const Duration(milliseconds: 1000),
-        callback: (timer) async {},
+        callback: (timer) async {
+          if ((widget.status == 'Started') ||
+              (_model.taskStatus == 'Started')) {
+            _model.timerController.onStartTimer();
+          }
+        },
         startImmediately: true,
       );
     });
@@ -210,6 +215,19 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
                                 _model.timerValue = displayTime;
                                 if (shouldUpdate) setState(() {});
                               },
+                              onEnded: () async {
+                                _model.instantTimer2 = InstantTimer.periodic(
+                                  duration: const Duration(milliseconds: 1000),
+                                  callback: (timer) async {
+                                    if ((widget.status == 'Started') ||
+                                        (_model.taskStatus == 'Started')) {
+                                      _model.timerController.onStartTimer();
+                                    }
+                                    setState(() {});
+                                  },
+                                  startImmediately: true,
+                                );
+                              },
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .displaySmall
@@ -223,7 +241,7 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 0.0),
                               child: Text(
-                                widget.status != null && widget.status != ''
+                                widget.status != 'Started'
                                     ? 'Start working on the task at the scheduled time.'
                                     : 'Cool you have started the task.',
                                 style: FlutterFlowTheme.of(context).labelMedium,
@@ -340,9 +358,11 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
               children: [
                 Builder(
                   builder: (context) {
-                    if (_model.taskStatus == 'Started') {
+                    if ((_model.taskStatus == 'Started') ||
+                        (widget.status == 'Started')) {
                       return Visibility(
-                        visible: _model.taskStatus != 'Completed',
+                        visible: (_model.taskStatus != 'Completed') ||
+                            (widget.status != 'Completed'),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -404,7 +424,8 @@ class _ViewTaskPageWidgetState extends State<ViewTaskPageWidget> {
                       );
                     } else {
                       return Visibility(
-                        visible: _model.taskStatus != 'Completed',
+                        visible: (_model.taskStatus == 'Initiated') ||
+                            (widget.status == 'Initiated'),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,

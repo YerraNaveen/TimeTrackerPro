@@ -54,6 +54,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
           ),
           3),
     )..addListener(() => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -219,7 +220,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                   text: 'Active Tasks',
                                 ),
                                 Tab(
-                                  text: 'Pending Task',
+                                  text: 'Upcomming Tasks',
                                 ),
                                 Tab(
                                   text: 'Completed Task',
@@ -310,7 +311,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                     5.0, 0.0, 5.0, 0.0),
                                             child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(20.0),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -325,7 +326,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          5.0),
+                                                          20.0),
                                                   shape: BoxShape.rectangle,
                                                   border: Border.all(
                                                     color: const Color(0x4C090250),
@@ -581,6 +582,11 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                               'status',
                                               isEqualTo: 'Initiated',
                                             )
+                                            .where(
+                                              'start_time',
+                                              isGreaterThanOrEqualTo:
+                                                  getCurrentTimestamp,
+                                            )
                                             .orderBy('start_time',
                                                 descending: true),
                                       ),
@@ -640,7 +646,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                     5.0, 0.0, 5.0, 0.0),
                                             child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(20.0),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -655,7 +661,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          5.0),
+                                                          20.0),
                                                   shape: BoxShape.rectangle,
                                                   border: Border.all(
                                                     color: const Color(0x4C090250),
@@ -970,7 +976,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                     5.0, 0.0, 5.0, 0.0),
                                             child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(20.0),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -985,7 +991,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          5.0),
+                                                          20.0),
                                                   shape: BoxShape.rectangle,
                                                   border: Border.all(
                                                     color: const Color(0x4C090250),
@@ -1300,7 +1306,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                     5.0, 0.0, 5.0, 0.0),
                                             child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(20.0),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -1315,7 +1321,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget>
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          5.0),
+                                                          20.0),
                                                   shape: BoxShape.rectangle,
                                                   border: Border.all(
                                                     color: const Color(0x4C090250),

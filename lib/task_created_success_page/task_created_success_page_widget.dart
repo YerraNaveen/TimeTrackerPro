@@ -30,6 +30,8 @@ class _TaskCreatedSuccessPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => TaskCreatedSuccessPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

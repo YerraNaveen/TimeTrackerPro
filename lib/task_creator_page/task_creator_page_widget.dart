@@ -8,6 +8,7 @@ import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'task_creator_page_model.dart';
@@ -35,6 +36,8 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -174,25 +177,39 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                                   await showModalBottomSheet<bool>(
                                       context: context,
                                       builder: (context) {
-                                        return SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              3,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: CupertinoDatePicker(
-                                            mode: CupertinoDatePickerMode
-                                                .dateAndTime,
-                                            minimumDate: getCurrentTimestamp,
-                                            initialDateTime:
-                                                getCurrentTimestamp,
-                                            maximumDate: DateTime(2050),
-                                            use24hFormat: false,
-                                            onDateTimeChanged: (newDateTime) =>
-                                                safeSetState(() {
-                                              _model.datePicked = newDateTime;
-                                            }),
+                                        return ScrollConfiguration(
+                                          behavior:
+                                              const MaterialScrollBehavior()
+                                                  .copyWith(
+                                            dragDevices: {
+                                              PointerDeviceKind.mouse,
+                                              PointerDeviceKind.touch,
+                                              PointerDeviceKind.stylus,
+                                              PointerDeviceKind.unknown
+                                            },
+                                          ),
+                                          child: SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                3,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: CupertinoDatePicker(
+                                              mode: CupertinoDatePickerMode
+                                                  .dateAndTime,
+                                              minimumDate: getCurrentTimestamp,
+                                              initialDateTime:
+                                                  getCurrentTimestamp,
+                                              maximumDate: DateTime(2050),
+                                              use24hFormat: false,
+                                              onDateTimeChanged:
+                                                  (newDateTime) =>
+                                                      safeSetState(() {
+                                                _model.datePicked = newDateTime;
+                                              }),
+                                            ),
                                           ),
                                         );
                                       });
@@ -311,7 +328,7 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                             description: _model.textController2.text,
                             userId: currentUserUid,
                             taskId: _model.unqueTaskId,
-                            status: 'Created',
+                            status: 'Initiated',
                           ),
                           ...mapToFirestore(
                             {
@@ -326,7 +343,7 @@ class _TaskCreatorPageWidgetState extends State<TaskCreatorPageWidget> {
                             description: _model.textController2.text,
                             userId: currentUserUid,
                             taskId: _model.unqueTaskId,
-                            status: 'Created',
+                            status: 'Initiated',
                           ),
                           ...mapToFirestore(
                             {

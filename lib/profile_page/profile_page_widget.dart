@@ -3,8 +3,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'profile_page_model.dart';
 export 'profile_page_model.dart';
@@ -25,6 +27,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfilePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.rewardPoints = functions.getUserRewardPoints()!;
+      });
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -407,10 +418,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 12.0, 0.0),
                           child: AutoSizeText(
-                            valueOrDefault<String>(
-                              functions.getUserRewardPoints(),
-                              '0',
-                            ),
+                            random_data.randomInteger(10, 100).toString(),
                             style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
                         ),

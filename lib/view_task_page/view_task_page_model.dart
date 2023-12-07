@@ -22,6 +22,8 @@ class ViewTaskPageModel extends FlutterFlowModel<ViewTaskPageWidget> {
   FlutterFlowTimerController timerController =
       FlutterFlowTimerController(StopWatchTimer(mode: StopWatchMode.countUp));
 
+  InstantTimer? instantTimer2;
+
   /// Initialization and disposal methods.
 
   @override
@@ -32,6 +34,7 @@ class ViewTaskPageModel extends FlutterFlowModel<ViewTaskPageWidget> {
     unfocusNode.dispose();
     instantTimer?.cancel();
     timerController.dispose();
+    instantTimer2?.cancel();
   }
 
   /// Action blocks are added here.

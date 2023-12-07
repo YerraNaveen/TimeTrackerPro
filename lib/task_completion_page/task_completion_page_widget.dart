@@ -30,6 +30,8 @@ class _TaskCompletionPageWidgetState extends State<TaskCompletionPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TaskCompletionPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

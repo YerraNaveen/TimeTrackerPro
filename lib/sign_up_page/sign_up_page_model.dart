@@ -6,6 +6,10 @@ class SignUpPageModel extends FlutterFlowModel<SignUpPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // State field(s) for displayName widget.
+  FocusNode? displayNameFocusNode;
+  TextEditingController? displayNameController;
+  String? Function(BuildContext, String?)? displayNameControllerValidator;
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressController;
@@ -32,6 +36,9 @@ class SignUpPageModel extends FlutterFlowModel<SignUpPageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    displayNameFocusNode?.dispose();
+    displayNameController?.dispose();
+
     emailAddressFocusNode?.dispose();
     emailAddressController?.dispose();
 
